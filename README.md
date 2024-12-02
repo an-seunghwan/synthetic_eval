@@ -34,11 +34,16 @@ evaluation.evaluate # function for evaluating synthetic data quality
   - Link for download `loan` dataset: [https://www.kaggle.com/datasets/teertha/personal-loan-modeling](https://www.kaggle.com/datasets/teertha/personal-loan-modeling)
 
 #### Example
+- *Please ensure that the target column for the machine learning utility is the last column of the dataset.*
 ```python
 """import libraries"""
 import pandas as pd
 import torch
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+"""specify column types"""
+data = pd.read_csv('./loan.csv') 
+# len(data) # 5,000
 
 """specify column types"""
 data = pd.read_csv('./loan.csv') 
@@ -54,17 +59,20 @@ continuous_features = [
 ]
 categorical_features = [
     'Family',
-    'Personal Loan',
     'Securities Account',
     'CD Account',
     'Online',
-    'CreditCard'
+    'CreditCard',
+    'Personal Loan', 
 ]
 target = 'Personal Loan' # machine learning utility target column
 
+### the target column should be the last column
+data = data[continuous_features + [x for x in categorical_features if x != target] + [target]] 
+
 """training, test, synthetic datasets"""
 data[categorical_features] = data[categorical_features].apply(
-    lambda col: col.astype('category').cat.codes + 1) # All columns should be the float type
+        lambda col: col.astype('category').cat.codes) 
 
 train = data.iloc[:2000]
 test = data.iloc[2000:4000]
