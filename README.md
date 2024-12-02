@@ -40,12 +40,9 @@ import pandas as pd
 import torch
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-"""the ground-truth (training, test) and synthetic dataset"""
+"""specify column types"""
 data = pd.read_csv('./loan.csv') 
 # len(data) # 5,000
-train = data.iloc[:2000]
-test = data.iloc[2000:4000]
-syndata = data.iloc[4000:]
 
 """specify column types"""
 continuous_features = [
@@ -64,6 +61,14 @@ categorical_features = [
     'CreditCard'
 ]
 target = 'Personal Loan' # machine learning utility target column
+
+"""training, test, synthetic datasets"""
+data[categorical_features] = data[categorical_features].apply(
+    lambda col: col.astype('category').cat.codes + 1) # All columns should be the float type
+
+train = data.iloc[:2000]
+test = data.iloc[2000:4000]
+syndata = data.iloc[4000:]
 
 """load Synthetic-Eval"""
 from synthetic_eval import evaluation
