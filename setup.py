@@ -8,7 +8,7 @@ with open('requirements.txt', encoding='utf-8') as f:
 
 setup(
     name='synthetic-eval',
-    version='0.0.8',
+    version='0.0.9',
     author='Seunghwan An',
     author_email='dpeltms79@gmail.com',
     description='Package for Evaluation of Synthetic Tabular Data Quality',
