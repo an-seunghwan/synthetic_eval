@@ -46,10 +46,6 @@ data = pd.read_csv('./loan.csv')
 # len(data) # 5,000
 
 """specify column types"""
-data = pd.read_csv('./loan.csv') 
-# len(data) # 5,000
-
-"""specify column types"""
 continuous_features = [
     'Age',
     'Experience',
