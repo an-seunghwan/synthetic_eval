@@ -19,6 +19,6 @@ setup(
     classifiers=[
         'Programming Language :: Python :: 3',
     ],
-    python_requires='>=3.11',
+    python_requires='>=3.8',
     install_requires=install_requires
 )
